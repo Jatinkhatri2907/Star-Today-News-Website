@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News Portal</title>
+    <meta http-equiv="refresh" content="120">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        header {
+            background: #c40000;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .container{
+            width:90%;
+            margin:auto;
+            display:grid;
+            grid-template-columns:3fr 1fr;
+            gap:20px;
+            margin-top:30px;
+        }
+
+        .news-card{
+            background:white;
+            padding:15px;
+            border-radius:8px;
+            box-shadow:0 0 8px rgba(0,0,0,0.15);
+            transition:0.3s;
+        }
+
+         .news-card:hover{
+             transform:scale(1.03);
+}  
+
+        .news-card h2 {
+            margin-top: 0;
+        }
+
+        .breaking{
+            background:#ffcc00;
+            padding:10px;
+            font-weight:bold;
+         }
+        .sidebar{
+            background:white;
+            padding:20px;
+            border-radius:8px;
+            box-shadow:0 0 8px rgba(0,0,0,0.2);
+}
+        .site-header{
+background:#c40000;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+.logo-section{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:15px;
+}
+
+.logo{
+width:60px;
+height:60px;
+}
+
+.site-title{
+font-size:60px;
+font-weight:bold;
+letter-spacing:3px;
+}
+
+        .date {
+            color: gray;
+            font-size: 12px;
+        }
+        .news-card img{
+    margin-top:10px;
+}
+
+nav a{
+    color:white;
+    margin-right:20px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+nav a:hover{
+    text-decoration:underline;
+}
+@media (max-width:768px){
+
+.site-title{
+font-size:32px;
+}
+
+.container{
+grid-template-columns:1fr;
+}
+
+.featured-image{
+height:220px;
+}
+
+.menu a{
+display:block;
+margin:8px 0;
+}
+
+.search-bar input{
+width:80%;
+}
+
+}
+    </style>
+</head>
+
+<body>
+
+
+<header class="site-header">
+
+<div class="logo-section">
+
+
+<h1 class="site-title">Star Today News</h1>
+
+</div>
+
+<form action="/search/" method="GET" class="search-bar">
+
+<input type="text" name="q" placeholder="Search news">
+
+<button type="submit">Search</button>
+
+</form>
+
+<nav class="menu">
+
+<a href="/">Home</a>
+
+<a href="/category/Politics/">Politics</a>
+
+<a href="/category/Technology/">Technology</a>
+
+<a href="/category/Sports/">Sports</a>
+
+<a href="/category/Business/">Business</a>
+
+</nav>
+
+</header>
+<div class="breaking">
+<span>Breaking News:</span>
+
+<marquee>
+
+{% for article in articles %}
+{{ article.title }}  •
+{% endfor %}
+
+</marquee>
+
+</div>
+
+<div style="background:#ffcc00;padding:10px;text-align:center;font-weight:bold;">
+Breaking News: Latest updates from around the world
+</div>
+
+<div class="container">
+
+{% for article in articles %}
+
+<div class="news-card">
+
+<h2>
+<a href="/article/{{ article.id }}/">
+{{ article.title }}
+</a>
+</h2>
+
+{% if article.image %}
+<img src="{{ article.image.url }}" width="100%" style="border-radius:6px;">
+{% endif %}
+
+<p>{{ article.content|truncatewords:30 }}</p>
+
+<p class="date">{{ article.published_date }}</p>
+
+</div>
+
+{% endfor %}
+<div class="sidebar">
+
+<h3>Trending News</h3>
+
+{% for item in trending %}
+
+<p>
+
+<a href="/article/{{item.id}}/">
+
+{{ item.title }}
+
+</a>
+
+</p>
+
+{% endfor %}
+
+<h3>Most Popular</h3>
+
+{% for p in popular %}
+
+<p>
+<a href="/article/{{p.id}}/">
+{{ p.title }}
+</a>
+</p>
+
+{% endfor %}
+
+
+
+</div>

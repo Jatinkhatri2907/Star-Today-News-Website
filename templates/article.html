@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>{{ article.title }}</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#f4f4f4;
+}
+
+.header{
+background:#c40000;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+.container{
+width:70%;
+margin:auto;
+background:white;
+padding:30px;
+margin-top:30px;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.article-image{
+width:100%;
+margin-top:20px;
+border-radius:6px;
+}
+
+.date{
+color:gray;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+<h1>Star Today News</h1>
+</div>
+
+<div class="container">
+
+<h1>{{ article.title }}</h1>
+
+<p class="date">{{ article.published_date }}</p>
+
+{% if article.image %}
+<img src="{{ article.image.url }}" style="width:100%;height:200px;object-fit:cover;">
+{% endif %}
+
+<p style="margin-top:20px; line-height:1.8;">
+{{ article.content }}
+</p>
+
+<br>
+
+<a href="/" style="color:red;">← Back to Home</a>
+
+</div>
+
+</body>
+</html>
