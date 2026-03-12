@@ -126,6 +126,30 @@ width:80%;
     </style>
 </head>
 
+<script>
+
+let lastTitle = "";
+
+setInterval(function(){
+
+fetch("/latest-news/")
+.then(res => res.json())
+.then(data => {
+
+if(data.title !== lastTitle){
+
+lastTitle = data.title;
+
+alert("Breaking News: " + data.title);
+
+}
+
+})
+
+},10000);
+
+</script>
+
 <body>
 
 

@@ -31,3 +31,16 @@ def search_news(request):
     articles = Article.objects.filter(title__icontains=query)
 
     return render(request,"home.html",{"articles":articles})
+
+from django.http import JsonResponse
+from .models import Article
+
+
+def latest_news(request):
+
+    article = Article.objects.latest("published_date")
+
+    return JsonResponse({
+        "title": article.title,
+        "id": article.id
+    })
